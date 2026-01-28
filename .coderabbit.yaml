@@ -50,8 +50,8 @@ reviews:
         Prefer testing behavior over implementation details.
         Aim for >80% coverage on new features.
 
-# Optional: let CodeRabbit auto-detect and include existing style guides
-code_guidelines:
-  include:
-    - '.github/PULL_REQUEST_TEMPLATE.md' # if you have project conventions here
-    - 'docs/coding-standards.md' # if you maintain a separate doc
+knowledge_base:
+  code_guidelines:
+    filePatterns:
+      - '.github/PULL_REQUEST_TEMPLATE.md' # if you have project conventions here
+      - 'docs/coding-standards.md' # if you maintain a separate doc
