@@ -3,7 +3,6 @@ version: '1.0' # optional but recommended
 reviews:
   # Global instructions (apply to the entire PR / all files)
   request_changes_workflow: false # optional: don't force request-changes mode
-  request_changes_reviewer: false
 
   # Project-wide default instructions
   instructions: |
