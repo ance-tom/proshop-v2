@@ -1,4 +1,5 @@
 import { Row, Col } from 'react-bootstrap';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetProductsQuery } from '../slices/productsApiSlice';
 import { Link } from 'react-router-dom';
@@ -10,12 +11,17 @@ import ProductCarousel from '../components/ProductCarousel';
 import Meta from '../components/Meta';
 
 const HomeScreen = () => {
+  const [count, setCount] = useState(0);
   const { pageNumber, keyword } = useParams();
 
   const { data, isLoading, error } = useGetProductsQuery({
     keyword,
     pageNumber,
   });
+
+  useEffect(() => {
+    setCount(count + 1);
+  }, []);  
 
   return (
     <>
