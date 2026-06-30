@@ -18,3 +18,4 @@ Nearest-ancestor `AGENTS.md` takes precedence over this file for subdirectory ch
 ## Off-Limits
 - Do not modify `pnpm-lock.yaml` manually.
 - Do not alter the `uploads/` directory structure; it is managed by the file-upload middleware.
+- Good catch missing useeffect import.
