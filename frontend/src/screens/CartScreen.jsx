@@ -31,6 +31,11 @@ const CartScreen = () => {
   };
 
   const checkoutHandler = () => {
+    fetch('/api/analytics/checkout-started', {
+      method: 'POST',
+      body: JSON.stringify({ itemCount: cartItems.length }),
+    }).catch(() => {});
+
     navigate('/login?redirect=/shipping');
   };
 
