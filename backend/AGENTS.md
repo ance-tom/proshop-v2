@@ -14,6 +14,9 @@ Node.js + Express + Mongoose (MongoDB). JWT-based auth stored in HTTP-only cooki
 - All Mongoose schemas must define `timestamps: true`.
 - Virtual fields and instance methods belong in the schema file, not in controllers.
 
+## Configuration
+- Numeric thresholds and limits must be read from `process.env` (with a sensible default), never hardcoded as literals.
+
 ## Do Not
 - Do not bypass the `protect` or `admin` middleware for any write endpoint.
 - Do not return raw Mongoose documents; always call `.toObject()` or shape the response manually.
