@@ -154,6 +154,15 @@ const getTopProducts = asyncHandler(async (req, res) => {
   res.json(products);
 });
 
+// @desc    Get low stock products
+// @route   GET /api/products/low-stock
+// @access  Private/Admin
+const getLowStockProducts = asyncHandler(async (req, res) => {
+  const threshold = 5;
+  const products = await Product.find({ countInStock: { $lte: threshold } });
+  res.json(products);
+});
+
 export {
   getProducts,
   getProductById,
@@ -162,4 +171,5 @@ export {
   deleteProduct,
   createProductReview,
   getTopProducts,
+  getLowStockProducts,
 };
