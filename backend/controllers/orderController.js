@@ -14,6 +14,16 @@ const addOrderItems = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('No order items');
   } else {
+    const MAX_QUANTITY_PER_ITEM = 10;
+
+    const invalidQuantity = orderItems.find(
+      (item) => item.qty > MAX_QUANTITY_PER_ITEM
+    );
+    if (invalidQuantity) {
+      res.status(400);
+      throw new Error(`Quantity per item cannot exceed ${MAX_QUANTITY_PER_ITEM}`);
+    }
+
     // NOTE: here we must assume that the prices from our client are incorrect.
     // We must only trust the price of the item as it exists in
     // our DB. This prevents a user paying whatever they want by hacking our client
