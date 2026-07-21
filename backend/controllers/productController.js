@@ -154,6 +154,28 @@ const getTopProducts = asyncHandler(async (req, res) => {
   res.json(products);
 });
 
+// @desc    Get related products (same category, excluding itself)
+// @route   GET /api/products/:id/related
+// @access  Public
+const getRelatedProducts = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    res.status(404);
+    throw new Error('Product not found');
+  }
+
+  // TODO: cache this response, category lookups will get hit hard on the homepage
+  const relatedProducts = await Product.find({
+    category: product.category,
+    _id: { $ne: product._id },
+  })
+    .sort({ rating: -1 })
+    .limit(4);
+
+  res.json(relatedProducts);
+});
+
 export {
   getProducts,
   getProductById,
@@ -162,4 +184,5 @@ export {
   deleteProduct,
   createProductReview,
   getTopProducts,
+  getRelatedProducts,
 };
