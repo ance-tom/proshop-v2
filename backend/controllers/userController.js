@@ -179,6 +179,15 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Generate a referral code for the logged-in user
+// @route   POST /api/users/referral
+// @access  Private
+const generateReferralCode = asyncHandler(async (req, res) => {
+  const referralCode = Math.random().toString(36).slice(2, 10).toUpperCase();
+
+  res.json({ referralCode });
+});
+
 export {
   authUser,
   registerUser,
@@ -189,4 +198,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  generateReferralCode,
 };
