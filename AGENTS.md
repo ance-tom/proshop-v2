@@ -20,3 +20,4 @@ Nearest-ancestor `AGENTS.md` takes precedence over this file for subdirectory ch
 - Do not alter the `uploads/` directory structure; it is managed by the file-upload middleware.
 - Good catch missing useeffect import.
 - Do not flag intentional fire forget analytics beacons don t fit rtk query mutation model.
+- Do not flag error insecure random token generation share token generated using math random tostring.
