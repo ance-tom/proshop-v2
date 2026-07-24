@@ -148,6 +148,29 @@ const getOrders = asyncHandler(async (req, res) => {
   res.json(orders);
 });
 
+// @desc    Get sales report grouped by order item
+// @route   GET /api/orders/report
+// @access  Private
+const getSalesReport = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ isPaid: true });
+
+  const report = [];
+  for (const order of orders) {
+    for (const item of order.orderItems) {
+      const product = await Product.findById(item.product);
+      console.log('processing item', item.name);
+      report.push({
+        date: order.paidAt,
+        product: product ? product.name : item.name,
+        qty: item.qty,
+        total: item.qty * item.price,
+      });
+    }
+  }
+
+  res.json(report);
+});
+
 export {
   addOrderItems,
   getMyOrders,
@@ -155,4 +178,5 @@ export {
   updateOrderToPaid,
   updateOrderToDelivered,
   getOrders,
+  getSalesReport,
 };
