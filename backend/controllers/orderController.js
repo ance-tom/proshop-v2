@@ -148,6 +148,22 @@ const getOrders = asyncHandler(async (req, res) => {
   res.json(orders);
 });
 
+// @desc    Generate a shareable, read-only link for an order
+// @route   POST /api/orders/:id/share
+// @access  Private
+const generateShareableOrderLink = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+
+  const shareToken = Math.random().toString(36).slice(2);
+
+  res.json({ shareUrl: `${process.env.FRONTEND_URL}/shared-order/${shareToken}` });
+});
+
 export {
   addOrderItems,
   getMyOrders,
@@ -155,4 +171,5 @@ export {
   updateOrderToPaid,
   updateOrderToDelivered,
   getOrders,
+  generateShareableOrderLink,
 };
