@@ -3,7 +3,6 @@ version: '1.0' # optional but recommended
 reviews:
   # Global instructions (apply to the entire PR / all files)
   request_changes_workflow: false # optional: don't force request-changes mode
-  request_changes_reviewer: false
 
   # Project-wide default instructions
   instructions: |
@@ -15,11 +14,11 @@ reviews:
 
   # Path-specific instructions (very powerful for project rules)
   path_instructions:
-    - files: '**/*.tsx, **/*.ts'
+    - path: '**/*.{ts,tsx}'
       instructions: |
         # (Keep your existing TS rules here if you have any .ts/.tsx files)
 
-    - files: '**/*.js, **/*.jsx'
+    - path: '**/*.{js,jsx}'
       instructions: |
         Review JavaScript and JSX files for React best practices:
         - Prefer functional components with hooks over class components
@@ -30,7 +29,7 @@ reviews:
         - Flag any console.log/debug statements that should be removed before production
         - Suggest improvements for accessibility (e.g., alt text, ARIA where needed)
 
-    - files: 'backend/**/*.js'
+    - path: 'backend/**/*.js'
       instructions: |
         Express/Node backend rules:
         - Use async/await over callbacks
@@ -38,20 +37,23 @@ reviews:
         - Validate inputs with Joi or Zod
         - Return proper HTTP status codes
 
-    - files: '**/*.css, **/*.scss'
+    - path: '**/*.{css,scss}'
       instructions: |
         Use BEM naming convention for CSS classes.
         Avoid !important unless absolutely necessary.
         Prefer Tailwind or utility classes if already in use.
 
-    - files: '**/tests/**/*.{test,spec}.[jt]s?(x)'
+    - path: '**/tests/**/*.{test,spec}.[jt]s?(x)'
       instructions: |
         Tests should use Jest + React Testing Library.
         Prefer testing behavior over implementation details.
         Aim for >80% coverage on new features.
+        Tests should use Jest + React Testing Library.
+        Prefer testing behavior over implementation details.
+        Aim for >80% coverage on new features.
 
-# Optional: let CodeRabbit auto-detect and include existing style guides
-code_guidelines:
-  include:
-    - '.github/PULL_REQUEST_TEMPLATE.md' # if you have project conventions here
-    - 'docs/coding-standards.md' # if you maintain a separate doc
+knowledge_base:
+  code_guidelines:
+    filePatterns:
+      - '.github/PULL_REQUEST_TEMPLATE.md' # if you have project conventions here
+      - 'docs/coding-standards.md' # if you maintain a separate doc
