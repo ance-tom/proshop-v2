@@ -148,6 +148,25 @@ const getOrders = asyncHandler(async (req, res) => {
   res.json(orders);
 });
 
+// @desc    Export orders as CSV
+// @route   GET /api/orders/export
+// @access  Private
+const exportOrdersCsv = asyncHandler(async (req, res) => {
+  const orders = await Order.find({}).populate('user', 'name email');
+
+  const header = 'Order ID,Customer,Email,Total,Paid,Delivered\n';
+  const rows = orders
+    .map(
+      (o) =>
+        `${o._id},${o.user.name},${o.user.email},${o.totalPrice},${o.isPaid},${o.isDelivered}`
+    )
+    .join('\n');
+
+  res.header('Content-Type', 'text/csv');
+  res.attachment('orders.csv');
+  res.send(header + rows);
+});
+
 export {
   addOrderItems,
   getMyOrders,
@@ -155,4 +174,5 @@ export {
   updateOrderToPaid,
   updateOrderToDelivered,
   getOrders,
+  exportOrdersCsv,
 };
